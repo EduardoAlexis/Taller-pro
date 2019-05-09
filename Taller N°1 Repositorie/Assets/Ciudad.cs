@@ -6,49 +6,32 @@ public class Ciudad : MonoBehaviour
 {
     public float posx;
     public float posy;
-   
-    // Start is called before the first frame update
+
     void Start()
     {
-        string[] namesZombie =
-        {
-            "Sofia","Ricardo","Marta", "Lucia","Leo","Andres"
-
-        };
-
         string[] namesCiudadanos =
         {
             "Alex", "Daniel","Toby","Arjemiro","Germna","Santiago","Saul","Alejandro","Aldruvar","Benzema","Cesar","Simon","Samuel","Lucas","Lorenzo",
             "Antonio", "Nicolas","Eric","Felix","Jamie","Rob","Paola"
         };
+        // nombres de los ciudadanos
 
-
-        int aleatorio = Random.Range(1, 5);
+        int aleatorio = Random.Range(2, 5); // numero random de zombies
 
         for (int i = 0; i < aleatorio; i++)
         {
-            Zoombie z = new Zoombie(namesZombie[i], Random.Range(40, 98));
+            Zoombie z = new Zoombie();
             Debug.Log(z.Info());
-            
+
         }
-        int aleatorio1 = Random.Range(1, 6);
-        for (int i =0;i<aleatorio1;i++)
+        int aleatorio1 = Random.Range(2, 6); // numero random de aldeanos
+        for (int i = 0; i < aleatorio1; i++) // eleccion de numero random
         {
-            Aldeano a = new Aldeano(namesCiudadanos[Random.Range(0, 20)], Random.Range(15, 100));
+            Aldeano a = new Aldeano(namesCiudadanos[Random.Range(0, 20)], Random.Range(15, 100)); // random entre nombres y edades
             Debug.Log(a.Info());
         }
-        Heroe h = new Heroe();
-       
+        Heroe h = new Heroe(); // inicia el script del heroe
 
-       
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-        
     }
 }
 

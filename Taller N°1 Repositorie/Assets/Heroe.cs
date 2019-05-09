@@ -6,13 +6,9 @@ public class Heroe
 {
     GameObject heroe;
    
-   
-   
-    
-
     public Heroe()
     {
-        heroe = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        heroe = GameObject.CreatePrimitive(PrimitiveType.Cube); // añade componentes como rigidbody , color rojo, camara principal , script de movimiento , posicion random, y nombre de heroe
         Vector3 pos = new Vector3(0, 1.1f, 0);
         heroe.transform.position = pos;
         heroe.name = " heroe";
@@ -21,13 +17,6 @@ public class Heroe
         heroe.AddComponent<Rigidbody>();
         heroe.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeAll;
         heroe.AddComponent<Camera>();
-        heroe.GetComponent<Rigidbody>().useGravity = false;
-        
+        heroe.GetComponent<Rigidbody>().useGravity = false;       
     }
-   
-    
-
-  
-
-  
 }

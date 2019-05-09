@@ -9,25 +9,25 @@ public class Aldeano
     GameObject aldeano;
 
 
-    public Aldeano(string name,int edad)
+    public Aldeano(string name,int edad) // recibe parametros de nombre y edad 
     { 
         this.name = name;
         this.edad= edad;
-        aldeano = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        Vector3 pos = new Vector3(Random.Range(-20, 25), 1f, Random.Range(-35, 30));
-        aldeano.name = "Aldeano";
-        aldeano.transform.position = pos;
-        aldeano.GetComponent<Renderer>().material.color = Color.yellow;
+        aldeano = GameObject.CreatePrimitive(PrimitiveType.Cylinder); // creacion de primitiva del aldeano
+        Vector3 pos = new Vector3(Random.Range(-20, 25), 1f, Random.Range(-35, 30));  // posicion al azar en el mapa
+        aldeano.name = "Aldeano"; // nombre del objeto
+        aldeano.transform.position = pos; 
+        aldeano.GetComponent<Renderer>().material.color = Color.yellow; // asignacion del color
 
     }
 
 	public string Info()
 	{
-		string info = "Soy un Ciudadano mi nombres es: " + getName() + " " + "y tengo " + getEdad() + " años";
+		string info = "Soy un Ciudadano mi nombres es: " + getName() + " " + "y tengo " + getEdad() + " años"; // imprime datos de nombre y edad
 		return info;
 	}
 
-    public string getName()
+    public string getName() // metodo para obtener nombre y edad
     {
         return name;
     }

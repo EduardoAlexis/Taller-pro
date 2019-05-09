@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Seg_Cam : MonoBehaviour
 {
-    public Transform Personaje;
+   /* public Transform Personaje;
     public float smmothing = 4.9f;
     Vector3 offset;
     // Start is called before the first frame update
@@ -18,5 +18,5 @@ public class Seg_Cam : MonoBehaviour
     {
         Vector3 campo = Personaje.position + offset;
         transform.position = Vector3.Lerp(transform.position, campo, smmothing * Time.deltaTime); 
-    }
+    }*/
 }
