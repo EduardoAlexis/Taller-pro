@@ -8,14 +8,15 @@ public class Heroe : MonoBehaviour
   
     void Start()
     {
+        //se crea un gameobject vacio y se agregan propiedades a este . Como color,rigidbody,camara y se modifican algunas propiedades del rigidbody como Constrain y gravedad
         hero = gameObject;
         hero.name = "Heroe";
-        hero.GetComponent<Renderer>().material.color = Color.red; // definir su color mediante componente renderer
-        hero.AddComponent<Rigidbody>(); 
-        hero.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll; // restringir rotaciones
-        hero.GetComponent<Rigidbody>().useGravity = false; // adicionar rigbody y volverlo falso
-        hero.AddComponent<Movimiento>(); // añadir script de movimiento
-        hero.AddComponent<Camera>(); // al crear al heroe adaptarle la camara
+        hero.GetComponent<Renderer>().material.color = Color.red;
+        hero.AddComponent<Rigidbody>();
+        hero.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        hero.GetComponent<Rigidbody>().useGravity = false;
+        hero.AddComponent<Movimiento>();
+        hero.AddComponent<Camera>();
         
     }
 

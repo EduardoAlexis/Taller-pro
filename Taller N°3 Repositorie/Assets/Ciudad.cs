@@ -7,38 +7,20 @@ using UnityEngine.UI;
 
 public class Ciudad : MonoBehaviour
 {
-    GameObject cube;
-    GameObject hero;
+  
     int contadorZombie;
     int contadorCiudadanos;
     public Text num_Z;
     public Text num_C;
-    public readonly int minimo_Cubos = Datos.mini_Cubos; // toma las variables minimas del script datos 
-    const int maximoCubos = Datos.maxi_Cubos;            // toma las variables maximas del script datos 
+  
 
-
+    
     // Start is called before the first frame update
     void Start()
     {
-       
-        hero = GameObject.CreatePrimitive(PrimitiveType.Cube);  // creacion de la primitiva cubo 
-        hero.AddComponent<Heroe>(); // añadir script
-        
-        for(int i = minimo_Cubos;  i < maximoCubos; i++) // creacion al azar de zombie o ciudadado
-        {
-            int aleatorio = Random.Range(0, 2);
-            cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            if (aleatorio == 0)
-            {
-                cube.AddComponent<zombie.Zombie>();
-            }
-            if (aleatorio == 1)
-            {
-                cube.AddComponent<ciudadano.Ciudadano>();
-            }
-           
-        }
-        StartCoroutine(CountNPC()); // inicio de corrutina al dar play
+        //Creacion de Objeto tipo Creador datos y ejecuccion de su contructor y llamada a corutina de conteo
+        CreadorDatos c = new CreadorDatos();
+        StartCoroutine(CountNPC());
       
     }
 
@@ -47,27 +29,57 @@ public class Ciudad : MonoBehaviour
         
     }
 
-    public void Stop()
-    {
-        StopCoroutine(CountNPC()); // detencion de corrutina 
-    }
-
+   
+    // Corutine que me sirve para contar la cantidad de zombies y ciudadanos que se crean en cada ejecucion del juego y los muestra en un text en el canvas del juego
     IEnumerator CountNPC()
     {
       
-        zombie.Zombie[] zombies = FindObjectsOfType<zombie.Zombie>(); //array de zombies
-        foreach (zombie.Zombie z in zombies) // cuenteo de zombies
+        zombie.Zombie[] zombies = FindObjectsOfType<zombie.Zombie>();
+        foreach (zombie.Zombie z in zombies)
         {
            contadorZombie++;
         }
-        num_Z.text = "# de Zombies :" + contadorZombie.ToString(); // impresion del cuenteo
-        ciudadano.Ciudadano[] citizen = FindObjectsOfType<ciudadano.Ciudadano>(); // array de ciudadano
-        foreach(ciudadano.Ciudadano c in citizen)  // cuenteo de ciudadano
+        num_Z.text = "# de Zombies : " + contadorZombie.ToString();
+        ciudadano.Ciudadano[] citizen = FindObjectsOfType<ciudadano.Ciudadano>();
+        foreach(ciudadano.Ciudadano c in citizen)
         {
             contadorCiudadanos++;
         }
-        num_C.text = "# de Ciudadanos : " + contadorCiudadanos.ToString(); // impresion de cuenteo
+        num_C.text = "# de Ciudadanos : " + contadorCiudadanos.ToString();
         yield return new WaitForSeconds(0.3f);
         
     }
+}
+
+//se crea una clase que no deriva de nada y se agregan 2 variables una de tipo read only y otra Const en el contructor de ella se crea aleatoriamente
+// la cantidad de cubos entre 5 y 25 y aleatoriamente se decidie si son de tipo Zombie o Ciudadano, se crea un unico heroe 
+public class CreadorDatos
+{
+
+    public readonly int minimo_Cubos = Random.Range(5, 16);
+    const int MAXI_CUBOS = 25;
+    GameObject cube;
+    GameObject hero;
+
+     public CreadorDatos()
+    {
+        hero = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        hero.AddComponent<Heroe>();
+
+        for(int i = 0; i <= Random.Range(minimo_Cubos, MAXI_CUBOS); i++)
+        {
+
+            cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            int aleatorio = Random.Range(0, 2);
+            if (aleatorio == 0)
+            {
+                cube.AddComponent<zombie.Zombie>();
+            }
+            if (aleatorio == 1)
+            {
+                cube.AddComponent<ciudadano.Ciudadano>();
+            }
+        }
+    }
+
 }

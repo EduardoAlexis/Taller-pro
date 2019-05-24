@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NPC //  Un namespace es una colección de clases a las que se hace referencia usando un prefijo elegido en el nombre de la clase
+namespace NPC
 {
    namespace enemy
    {
@@ -12,26 +12,29 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
             Vector3 destino;
             Vector3 rotacion;
          
-
-            public enum Colores // enum con colores de los zombies
+            //Enum de colores
+            public enum Colores
             {
                 cyan,magenta,verde
             }
             Colores colores;
-
-            public enum Comportamiento // Animaciones - Comportamiento
+            
+            //Enum Comportamiento
+            public enum Comportamiento
             {
                 idle,Moving,Rotating
             }
             Comportamiento comportamiento;
              
-            public enum Partes // Partes del cuerpo y gustos
+            //Enum Partes
+            public enum Partes
             {
                 sesos,corazon,intestinos,estomago,cuello
             }
             public Partes gustos;
 
-              public struct DatosZombie // estructura con los enums
+             //Estructura que contiene los Enums colores,comportamiento y gustos
+              public struct DatosZombie
             {
                public  Colores color;
                 public Partes gustos;
@@ -42,14 +45,16 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
 
              void Start()
             {
-                int aleatorio = Random.Range(0, 3); // un numero random de 1 a 3
+                //crea un gameobject vacio y escoge un color aleatorio entre cyan , verde, magenta 
+                // asi como tambien escoge una posicion aleatoria en el mundo para aparecer y agrega componentes como Rigidbody , modifica ciertas propiedades como Constrain, y gravedad
+                int aleatorio = Random.Range(0, 3);
                 zom = gameObject;
-                zom.name = "Zombie"; // definicion de zombie
-                zom.transform.position = new Vector3(Random.Range(-20, 20), 0f, Random.Range(-20, 15)); // posicion en la cual puede aparecer al azar
+                zom.name = "Zombie";
+                zom.transform.position = new Vector3(Random.Range(-35, 30), 0f, Random.Range(-30, 35));
                 zom.AddComponent<Rigidbody>();
-                zom.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll; //restringir rotacion o movimiento
+                zom.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 zom.GetComponent<Rigidbody>().useGravity = false;
-                 colores = (Colores)Random.Range(0, 3); // eleccion al azar entre 3 numeros
+                 colores = (Colores)Random.Range(0, 3);
                 if (colores== Colores.cyan)
                 {
 
@@ -66,13 +71,18 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
                     zom.GetComponent<Renderer>().material.color = Color.green;
                 }
                
-                    StartCoroutine(EstadosZombie()); // comienzo de corrutina
+                    StartCoroutine(EstadosZombie());
+                
+               
+                
                 
             }
 
              void Update()
-            {
-                if (comportamiento == Comportamiento.idle) // comportamientos del zombie
+                  // ejecuta el comportamiento esocogido en la corutine
+
+             {
+                if (comportamiento == Comportamiento.idle)
                 {
                     Debug.Log("Estoy quieto");
                 }
@@ -88,11 +98,13 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
                 
             }
 
+
+            //metodo que devuelve un estructura con los Datos del zombie :Gustos 
             public DatosZombie ObtenerZombieInfo()
             {
-                gustos = (Partes)Random.Range(0, 4);  // partes del cuerpo al azar
-                DatosZombie datos = new DatosZombie(); // toma los datos del script datos
-                if (gustos == Partes.sesos) // imprimir los gustos del zombie 
+                gustos = (Partes)Random.Range(0, 4); 
+                DatosZombie datos = new DatosZombie();
+                if (gustos == Partes.sesos)
                 {
                     datos.gustos = Partes.sesos;
                     Debug.Log("warrrrr soy un Zombie y quiero comerme tus" + datos.gustos);
@@ -124,10 +136,12 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
                
             }
 
-             public IEnumerator EstadosZombie() // comportamiento de 3 distintas opciones
+            // corutine que escoge un comportamiento al azar etre idle,moving y rotating cada 3 segundos 
+
+             public IEnumerator EstadosZombie()
             {
                
-                comportamiento = (Comportamiento)Random.Range(0, 3); // eleccion de comportamiento
+                comportamiento = (Comportamiento)Random.Range(0, 3);
 
                 if (comportamiento == Comportamiento.idle)
                 {
@@ -136,7 +150,7 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
 
                 if (comportamiento == Comportamiento.Moving)
                 {
-                    destino = new Vector3(Random.Range(-22, 20), 0f, Random.Range(-20, 20)); // espacios en los que se puede mover la corrutina
+                    destino = new Vector3(Random.Range(-30, 30), 0f, Random.Range(-25, 25));
                     yield return null;
                 }
 
@@ -159,14 +173,16 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
         public class Ciudadano:MonoBehaviour
         {
             GameObject ciud;
-            public enum Nombres // agrupacion de nombres 
+
+            // Enums 20 nombres
+            public enum Nombres
             {
                 Trinity, Morfeo, Neo, Hank, Nabucodonosor, Smith, Xiu, Marduk, Leviatan, Belzebu, Astarot, Behemont, Legion, Nerdal, Hawck,
                 Edard, Robert, Aria, Jhon, Jamie, Rob, Catalyn
             }
           
-
-            public struct DatosCiudadano // estructura con las variables de edad y nombre
+            // Structura DatosCiudadano con 2 datos edad, nombres
+            public struct DatosCiudadano
             {
                 public int edad;
                 public string nombre;
@@ -174,12 +190,13 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
             }
            // DatosCiudadano date;
 
-            void  Start() // adicion de componentes 
+            void  Start()
             {
+              //se crea un gameobject vacio y agrega color amarillo se escoge una posicion aleatoria en el mundo y se agrega rigidbody y modifica ciertas propiedades
                 ciud = gameObject;
                 ciud.GetComponent<Renderer>().material.color = Color.yellow;
                 ciud.name = "Ciudadano";
-                ciud.transform.position = new Vector3(Random.Range(-25, 20), 0f, Random.Range(-20, 25)); // posicion en la que pueden aparecer
+                ciud.transform.position = new Vector3(Random.Range(-30, 30), 0f, Random.Range(-30, 30));
                 ciud.AddComponent<Rigidbody>();
                 ciud.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 ciud.GetComponent<Rigidbody>().useGravity = false;
@@ -187,7 +204,8 @@ namespace NPC //  Un namespace es una colección de clases a las que se hace ref
                 
             }
 
-            public DatosCiudadano Datos() // clase que toma datos como nombres y edades al azar
+            //metodo que devueve una estructura con los datos del ciudadano
+            public DatosCiudadano Datos()
             {
                 DatosCiudadano date = new DatosCiudadano();
                 date.nombre = ((Nombres)Random.Range(0, 21)).ToString();
